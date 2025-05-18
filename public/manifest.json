@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "My Overlay Extension",
+  "version": "1.0",
+  "description": "Overlay interface like Render Square",
+  "permissions": ["scripting"],
+  "host_permissions": ["https://meet.google.com/*"],
+  "background": {
+    "service_worker": "assets/background.js"
+  },
+  "action": {
+    "default_title": "Show Overlay"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["https://meet.google.com/*"]
+    }
+  ]
+}
