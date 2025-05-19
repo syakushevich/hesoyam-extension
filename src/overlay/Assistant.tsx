@@ -1,5 +1,10 @@
 import Moveable from "react-moveable";
+import "../index.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { useRef, useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { AnimatedCloseButton } from "../components/AnimatedCloseButton";
 import { useStreamingMarkdown } from "./useStreamingMarkdown";
 import { useStreamingSummary } from "./useStreamingSummary";
 
@@ -24,7 +29,7 @@ export default function Assistant({ onClose }: { onClose: () => void }) {
 
   // Use the custom hook for streaming summary
   const { summary, loading, startStreaming, cleanup } = useStreamingSummary();
-  const html = useStreamingMarkdown(summary, null);
+  const markdown = useStreamingMarkdown(summary, null);
 
   // Spacebar handler
   useEffect(() => {
@@ -51,27 +56,32 @@ export default function Assistant({ onClose }: { onClose: () => void }) {
           height: `${frame.height}px`,
         }}
       >
-        <div className="assistant-navbar">
-          <div className="assistant-navbar-center">
-            click spacebar to ask AI
+        <Card className="w-full h-full flex flex-col">
+        <CardHeader className="relative flex flex-row items-center py-4">
+          <CardTitle className="w-full text-center">
+            Press spacebar to ask AI
+          </CardTitle>
+          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+            <AnimatedCloseButton onClick={onClose} />
           </div>
-          <button
-            onClick={onClose}
-            className="assistant-navbar-close"
-            aria-label="Close"
-          >
-            ×
-          </button>
-        </div>
-        <div className="assistant-summary-container">
-          {loading && <div>Loading summary...</div>}
-          {summary && (
-            <div
-              className="markdown-body assistant-summary-pre"
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
-          )}
-        </div>
+        </CardHeader>
+
+          <div className="bg-border shrink-0 h-[1px] w-full" />
+          <CardContent className="flex-1 overflow-auto p-4">
+            <div className="assistant-summary-container">
+              {loading && <div>Loading summary...</div>}
+              {summary && (
+                <div className="markdown-body assistant-summary-pre">
+                <div className="prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {markdown}
+                  </ReactMarkdown>
+                </div>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
       <Moveable
         target={ref}
