@@ -1,5 +1,8 @@
 @import "tw-animate-css";
+@import "highlight.js/styles/github-dark.css";
 /*@import "github-markdown-css/github-markdown.css";*/
+/*@import "highlight.js/styles/github.css";*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +10,14 @@
 @custom-variant dark (&:is(.dark *));
 
 :host, :root, html {
+  --hesoyam: #FFDB4D; /* OG yellow #facc15 | cool green #44CF6C | bright red #F72C25  */
+  --light-blue: #EFF7FF;
+  --dollar-green: #44CF6C;
+  --danger-red: #F72C25;
+  --lavander: #E5EAFA;
   --radius: 0.5rem;
   --tw-border-style: solid;
   --background: oklch(1 0 0);
-  --danger-red: #F72C25;
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
@@ -235,37 +242,8 @@ button:focus-visible {
   z-index: 1;
 }
 
-.assistant-summary-container {
-  flex: 1 1 0%;
-  min-height: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
 .assistant-summary-pre {
-  flex: 1 1 0%;
-  width: 100%;
   background: var(--card);
-  border-radius: 8px;
-  overflow-y: auto;
-/*  white-space: pre-wrap;*/
-/*  padding: 1em;*/
-  margin: 0;
-  box-sizing: border-box;
-  max-height: 100%;
-}
-
-.assistant-summary-container p {
-  margin-bottom: 1rem;
-}
-
-.assistant-summary-container li {
-  margin-bottom: 1.5rem;
-}
-
-.assistant-summary-container pre {
-  margin-bottom: 1rem;
 }
 
 .moveable-control-box .moveable-direction {

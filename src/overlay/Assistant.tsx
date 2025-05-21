@@ -1,12 +1,13 @@
 import Moveable from "react-moveable";
 import "../index.css";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { useRef, useState, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { AnimatedCloseButton } from "../components/AnimatedCloseButton";
+import { Card, CardContent } from "../components/ui/card";
+import { AssistantNavbar } from "../components/AssistantNavbar";
 import { useStreamingMarkdown } from "./useStreamingMarkdown";
 import { useStreamingSummary } from "./useStreamingSummary";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
 
 const testTranscriptForContext = `Interviewer: Can you share some tips for improving Postgres performance?
 Guest: Sure! Is it reads or writes that are the bottleneck?
@@ -27,9 +28,8 @@ export default function Assistant({ onClose }: { onClose: () => void }) {
     height: 600,
   });
 
-  // Use the custom hook for streaming summary
   const { summary, loading, startStreaming, cleanup } = useStreamingSummary();
-  const markdown = useStreamingMarkdown(summary, null);
+  const { topic, markdown } = useStreamingMarkdown(summary, null);
 
   // Spacebar handler
   useEffect(() => {
@@ -57,26 +57,15 @@ export default function Assistant({ onClose }: { onClose: () => void }) {
         }}
       >
         <Card className="w-full h-full flex flex-col">
-        <CardHeader className="relative flex flex-row items-center py-4">
-          <CardTitle className="w-full text-center">
-            Press spacebar to ask AI
-          </CardTitle>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
-            <AnimatedCloseButton onClick={onClose} />
-          </div>
-        </CardHeader>
-
+          <AssistantNavbar topic={topic} loading={loading} onClose={onClose} />
           <div className="bg-border shrink-0 h-[1px] w-full" />
           <CardContent className="flex-1 overflow-auto p-4">
             <div className="assistant-summary-container">
-              {loading && <div>Loading summary...</div>}
               {summary && (
-                <div className="markdown-body assistant-summary-pre">
-                <div className="prose prose-invert max-w-none">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                <div className="prose prose-neutral dark:prose-invert max-w-none assistant-summary-pre">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
                     {markdown}
                   </ReactMarkdown>
-                </div>
                 </div>
               )}
             </div>
