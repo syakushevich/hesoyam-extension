@@ -11,6 +11,7 @@
 
 :host, :root, html {
   --hesoyam: #FFDB4D; /* OG yellow #facc15 | cool green #44CF6C | bright red #F72C25  */
+  --hesoyam-accent: hsl(12 6.5% 15.1%);
   --light-blue: #EFF7FF;
   --dollar-green: #44CF6C;
   --danger-red: #F72C25;
@@ -183,7 +184,7 @@ button:focus-visible {
   width: 400px;
   height: 200px;
   background: white;
-  z-index: 999999;
+  z-index: 9999;
   box-shadow: -2px 0 8px rgba(0,0,0,0.2);
   padding: 16px;
   border-radius: 12px;
@@ -197,7 +198,7 @@ button:focus-visible {
   position: fixed;
   top: 50%;
   left: 50%;
-  z-index: 999999;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -251,4 +252,9 @@ button:focus-visible {
   border: none !important;
   box-shadow: none !important;
   opacity: 0 !important;
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+  content: none !important;
 }

@@ -6,7 +6,7 @@ export function AnimatedCloseButton(props: React.ComponentProps<typeof Button>) 
     <Button
       variant="outline"
       size="icon"
-      className="!bg-transparent size-11 aspect-square p-0 text-[color:white] hover:bg-[oklch(0.9_0.05_9.75)] hover:text-[color:var(--danger-red)]"
+      className="size-9 aspect-square p-0 text-[color:white] hover:bg-[color:var(--hesoyam-accent)] hover:text-[color:var(--danger-red)]"
       aria-label="Close"
       {...props}
     >

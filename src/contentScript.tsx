@@ -25,13 +25,26 @@ if (!reactRoot) {
 
 // Inject CSS into the shadow root
 const styleId = "my-extension-shadow-style";
+const styleHref = chrome.runtime.getURL("assets/contentScript.css");
+
+// Shadow root
 if (!shadowRoot.getElementById(styleId)) {
   const style = document.createElement("link");
   style.id = styleId;
   style.rel = "stylesheet";
   style.type = "text/css";
-  style.href = chrome.runtime.getURL("assets/contentScript.css"); // Use your actual CSS file name
+  style.href = styleHref;
   shadowRoot.appendChild(style);
+}
+
+// Main document
+if (!document.getElementById(styleId)) {
+  const style = document.createElement("link");
+  style.id = styleId;
+  style.rel = "stylesheet";
+  style.type = "text/css";
+  style.href = styleHref;
+  document.head.appendChild(style);
 }
 
 // Render your React app into the shadow root
