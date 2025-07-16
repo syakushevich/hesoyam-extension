@@ -179,15 +179,13 @@ button:focus-visible {
 /* Overlay panel (the small login panel) */
 .extension-menu {
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 200px;
-  background: white;
+  top: 1rem;
+  right: 1rem;
+  background: var(--card);
   z-index: 9999;
   box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-  padding: 16px;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -247,6 +245,14 @@ button:focus-visible {
   background: var(--card);
 }
 
+.border-border-custom {
+  border-color: var(--border) !important;
+}
+
+.hesoyam-link {
+  color: var(--hesoyam) !important;
+}
+
 .moveable-control-box .moveable-direction {
   background: transparent !important;
   border: none !important;
@@ -258,3 +264,18 @@ button:focus-visible {
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
   content: none !important;
 }
+
+.prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-inline-end: 0 !important;
+  padding-inline-start: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-radius: 0 !important;
+}
+
+.prose :where(figcaption):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 0 !important;
+}
+

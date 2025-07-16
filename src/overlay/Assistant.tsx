@@ -39,26 +39,58 @@ export default function Assistant({ onClose }: { onClose: () => void }) {
   const [selectedTopic, setSelectedTopic] = useState<TopicNode | null>(null);
 
   // Use the custom hook for captions
-  const captions = useLiveCaptions(sidebarOpen);
+  const captions = useLiveCaptions(true);
 
   // Spacebar handler
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "Space" && !e.repeat) {
-        // Clear selected topic so streaming summary is shown
-        setSelectedTopic(null);
+      // Log when the effect itself re-runs and what 'captions' it sees
+      console.log(
+        "[Effect Setup] Assistant effect for spacebar re-running. Captions length:",
+        captions.length,
+        "First caption text:",
+        captions.length > 0 ? captions[0]?.text : "N/A",
+      );
 
-        const transcript = captions.map(c => `${c.name}: ${c.text}`).join("\n");
-        if (transcript.trim().length === 0) return;
-        startStreaming(transcript);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      cleanup();
-    };
-  }, [startStreaming, cleanup, captions]);
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.code === "Space" && !e.repeat) {
+          setSelectedTopic(null);
+
+          // Log the 'captions' from this specific handleKeyDown's closure
+          console.log(
+            "[handleKeyDown] Spacebar pressed. Captions in closure (length):",
+            captions.length,
+            // JSON.stringify(captions) // Can be very verbose, length might be enough
+          );
+
+          const transcript = captions
+            .map((c) => `${c.name}: ${c.text}`)
+            .join("\n");
+          console.log(
+            "[handleKeyDown] Generated transcript for streaming:",
+            transcript,
+          );
+
+          if (transcript.trim().length === 0) {
+            console.log(
+              "[handleKeyDown] Transcript is empty, not streaming.",
+            );
+            return;
+          }
+          startStreaming(transcript);
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        // Log when the cleanup for this effect runs
+        // 'captions' here is from the closure of when this effect was set up
+        console.log(
+          "[Effect Cleanup] Assistant effect for spacebar cleaning up. Listener was for captions (length):",
+          captions.length,
+        );
+        window.removeEventListener("keydown", handleKeyDown);
+        cleanup();
+      };
+    }, [startStreaming, cleanup, captions]);
 
   useEffect(() => {
     if (!loading && summary) {

@@ -1,14 +1,20 @@
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = "YOUR_KEY";
 const DETAILED_ANSWER_PROMPT = `
-You are a world-class programming tutor. Analyze the provided meeting transcript, identify the last main programming topic or question** discussed, and provide a detailed, structured answer in markdown.
+You are an intelligent assistant designed to analyze discussions and provide clear, focused information.
+Analyze the provided transcript. If multiple topics, questions, or points of discussion are present, you **must focus exclusively on the very last one mentioned chronologically**.
 
 Instructions:
-- Start with: <topic name> (on its own line)
-- Then give a thorough, clear, and educational explanation focused on the last topic or question.
-- Then: "Code example:" (provide a relevant, well-commented code example)
-- Use markdown formatting for code blocks, lists, and emphasis.
-- Be clear, concise, and helpful. Assume the reader is eager to learn.
-- Do not add any introductory or concluding remarks outside the structure above.
+1.  Identify the single, very last topic, question, or main point discussed at the end of the transcript.
+2.  Start your response with this identified item, formatted as:
+    [topic]: <The very last topic, question, or point discussed>
+3.  Following the [topic] line, provide a thorough, clear, and helpful answer or explanation directly addressing this last item.
+4.  After your explanation, include an "Example:" section:
+    - If the topic is technical (e.g., programming, science, mathematics) and a code snippet or a specific technical illustration is the most relevant example, provide that. Ensure code is well-commented.
+    - For other topics, provide a concise, illustrative example that clarifies your explanation or provides a practical instance.
+    - If no specific example significantly enhances understanding or is not applicable to the nature of the topic, you may state "Example: Not applicable for this topic."
+5.  Use markdown formatting for lists, emphasis, and code blocks (if any).
+6.  Your entire response should be clear, concise, and directly address the user's likely need for information on that last point. Assume the user is looking for a useful and direct response.
+7.  Do not add any introductory or concluding remarks outside the specified structure.
 `;
 
 chrome.action.onClicked.addListener((tab) => {

@@ -1,15 +1,15 @@
-For extention:
+# Google Meet Extension
 
-Go to chrome://extensions/
+A Chrome extension that adds custom keyboard controls to Google Meet.
 
-Load unpacked
+## Demo
 
-Select /dist folder
+<video src="xxx.mp4" controls width="640">
+  Your browser does not support the video tag.
+</video>
 
-Open https://meet.google.com/landing?authuser=0
+## Installation
 
-Click on extension
-
-Click Log In
-
-Click spacebar
+1. Build your extension
+   ```bash
+   npm run build

@@ -1,8 +1,8 @@
 import { cn } from "../lib/utils"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { Button } from "../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
+import { Input } from "../components/ui/input"
+import { Label } from "../components/ui/label"
 
 export function LoginForm({
   className,
@@ -11,7 +11,7 @@ export function LoginForm({
 }: React.ComponentPropsWithoutRef<"div"> & { onLogin: () => void }) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+      <Card className="border-0">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
@@ -43,7 +43,7 @@ export function LoginForm({
                 </Button>
               </div>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-                <span className="relative z-10 bg-background px-2 text-muted-foreground">
+                <span className="relative z-10 px-2 text-muted-foreground" style={{ background: "var(--card)" }}>
                   Or continue with
                 </span>
               </div>
@@ -62,7 +62,7 @@ export function LoginForm({
                     <Label htmlFor="password">Password</Label>
                     <a
                       href="#"
-                      className="ml-auto text-sm underline-offset-4 hover:underline"
+                      className="ml-auto text-sm underline-offset-4 hover:underline hesoyam-link"
                     >
                       Forgot your password?
                     </a>
@@ -73,19 +73,15 @@ export function LoginForm({
                   Login
                 </Button>
               </div>
-              <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
-                  Sign up
-                </a>
-              </div>
+              {/* Removed "Don't have an account? Sign up" */}
             </div>
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4">
+        By clicking continue, you agree to our{" "}
+        <a href="#" className="hesoyam-link">Terms of Service</a>{" "}
+        and <a href="#" className="hesoyam-link">Privacy Policy</a>.
       </div>
     </div>
   );
